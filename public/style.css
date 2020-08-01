@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box ;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  border-bottom: 1px solid gainsboro;
+  display: flex;
+  justify-content: space-around;
+  padding: 1em 0;
+}
+
+nav a {
+  cursor: pointer;
+  
+  color: rgb(0, 140, 255);
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav div a {
+  margin: 0 1em;
+}
+
+main {
+  margin: 2em 6em;
+}
