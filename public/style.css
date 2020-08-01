@@ -27,5 +27,6 @@ nav div a {
 }
 
 main {
-  margin: 2em 6em;
+  width: 60%;
+  margin: 4em auto;
 }

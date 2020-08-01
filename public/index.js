@@ -1,3 +1,14 @@
+// imports
+import { heroesList } from './comicvine-api.js';
+// http requests
+
+function getList() {
+  heroesList
+    .then(data => data.json())
+    .then(res => res.results.map(el => `<li>${el.name} </li>`).join(''))
+}
+
+
 // ui
 
 const UIelements = {
@@ -11,9 +22,9 @@ const UIelements = {
 }
 
 const templates = {
-  home: 'on home',
-  heroes: 'on heroes',
-  about: 'on about'
+  home: '<h1>on home</h1>',
+  heroes: '<h1>on heroes</h1>',
+  about: '<h1>on about</h1>'
 }
 
 // routing
@@ -38,19 +49,21 @@ const navigation = path => {
 
 // events
 
-window.addEventListener('load', e => {
+window.addEventListener('load', (e) => {
   if(!window.history.state) {
     content.innerHTML = routes['/home'];
-    document.title = UIelements.title
+    document.title = UIelements.title;
   }
   else {
     content.innerHTML = window.history.state.content;
     document.title = UIelements.title + window.history.state.sitePath;
   }
+
+
+  
 });
 
 window.addEventListener('popstate', e => {
-  console.log(e)
   content.innerHTML = e.state.content;
   document.title = UIelements.title + e.state.sitePath;
 });
