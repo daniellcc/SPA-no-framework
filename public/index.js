@@ -1,13 +1,15 @@
 // imports
 import { heroesList } from './comicvine-api.js';
+
 // http requests
 
-function getList() {
-  heroesList
-    .then(data => data.json())
-    .then(res => res.results.map(el => `<li>${el.name} </li>`).join(''))
-}
-
+heroesList
+  .then(data => data.json())
+  .then(res => {
+    const list = res.results.map(el => `<li>${el.name} </li>`).join('');
+    templates.heroes += list;
+  })
+  .catch(err => { throw err });
 
 // ui
 
@@ -21,7 +23,7 @@ const UIelements = {
   title: 'noframework | '
 }
 
-const templates = {
+let templates = {
   home: '<h1>on home</h1>',
   heroes: '<h1>on heroes</h1>',
   about: '<h1>on about</h1>'
@@ -39,7 +41,7 @@ const navigation = path => {
   const sitePath = path.slice(1);
 
   window.history.pushState(
-    { content: routes[path], sitePath },
+    { sitePath },
     sitePath,
     path
   );
@@ -55,16 +57,13 @@ window.addEventListener('load', (e) => {
     document.title = UIelements.title;
   }
   else {
-    content.innerHTML = window.history.state.content;
+    content.innerHTML = routes['/' + window.history.state.sitePath]
     document.title = UIelements.title + window.history.state.sitePath;
   }
-
-
-  
 });
 
 window.addEventListener('popstate', e => {
-  content.innerHTML = e.state.content;
+  content.innerHTML = routes['/' + e.state.sitePath];
   document.title = UIelements.title + e.state.sitePath;
 });
 
